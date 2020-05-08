@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        this.numX = 8;
+        this.numY = 7;
         this.SetFieldSize();
     }
 }
