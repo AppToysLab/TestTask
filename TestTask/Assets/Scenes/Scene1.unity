@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellScale: 0
+  secondPointCell: []
 --- !u!1 &313217368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,8 +1579,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 243033851}
-        m_MethodName: CellsGenerate
+      - m_Target: {fileID: 139285104}
+        m_MethodName: CellMixer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
