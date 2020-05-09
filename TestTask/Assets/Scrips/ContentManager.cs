@@ -7,13 +7,13 @@ public class ContentManager : MonoBehaviour
     public string[] content;
     public Font fntCell;
 
-    private Font SetFontCell()
+    private Font SetFontCell()// подгрузка шрифта из ресурсов
     {
         Font fntCell = Resources.Load<Font>("Font/fntCell");
         return fntCell;
     }
     
-    public string [] ContentMaker(int numAlphabet, int numX, int numY)
+    public string [] ContentMaker(int numAlphabet, int numX, int numY) //метод формирования контента
     {
         char[] allSymbols = new char[numAlphabet];//формируем пулл возможных символов
         int firstSymbol = 65;

@@ -12,28 +12,35 @@ public class GameManager : MonoBehaviour
     public delegate void Remove();
     public event Remove MoveToNextPoint;// событие на перемещение ячейки 
 
-    public void CellMixer()// метод перемешивания
+    public void CellMixer()// метод перемешивания. Вызывается из UI.Button
     {
-        System.GC.Collect();//сборка мусора 
         Net net = FindObjectOfType<Net>();
-        net.MixerOfCoordinates(net.secondPointCell);//повторное перемешивание
-        this.MoveToNextPoint();// событие на предвижение. Слушатель в экз Cell
+        if ((net.secondPointCell != null) && (GameObject.Find("Cell") != null))
+        {
+            System.GC.Collect();//сборка мусора 
+            net.ReMixCoord(net.secondPointCell);//повторное перемешивание
+            this.MoveToNextPoint();// событие на предвижение. Слушатель в экз Cell
+        }
+        
     }
 
     public void SetFieldSize()// назначение размеров поля
     {
         this.fieldSize = new Vector2(530, 600);
     }
+
     public void SetNumX()// назначается из UI элемента
     {
         var input = Input.inputString;
         this.numX = int.Parse(input);
     }
+
     public void SetNumY()// назначается из UI элемента
     {
         var input = Input.inputString;
         this.numY = int.Parse(input);
     }
+
     void Start()
     {
         this.numX = 3;//задаем значение по умолчанию
