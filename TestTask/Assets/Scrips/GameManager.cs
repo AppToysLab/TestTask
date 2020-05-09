@@ -26,19 +26,28 @@ public class GameManager : MonoBehaviour
 
     public void SetFieldSize()// назначение размеров поля
     {
-        this.fieldSize = new Vector2(530, 600);
+        this.fieldSize = new Vector2(560, 600);
     }
 
     public void SetNumX()// назначается из UI элемента
     {
         var input = Input.inputString;
-        this.numX = int.Parse(input);
+        var inputX = int.Parse(input);
+        if (inputX != 0)
+            {
+                this.numX = int.Parse(input);
+            }
+        
     }
 
     public void SetNumY()// назначается из UI элемента
     {
         var input = Input.inputString;
-        this.numY = int.Parse(input);
+        var inputY = int.Parse(input);
+        if (inputY != 0)
+        {
+            this.numY = int.Parse(input);
+        }
     }
 
     void Start()

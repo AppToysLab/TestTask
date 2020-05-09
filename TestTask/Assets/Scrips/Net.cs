@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,7 +28,7 @@ public class Net : MonoBehaviour
         Cell.GetComponent<Cell>().numberOfCell = counterCell;//передаем номер ячейки
         var cellTxt = Cell.GetComponent<Text>();
         cellTxt.font = this.fntCell;
-        cellTxt.fontSize = 60; 
+        cellTxt.fontSize = 48; 
         cellTxt.fontStyle = FontStyle.Bold;
         cellTxt.color = Color.gray;
         cellTxt.alignment = TextAnchor.MiddleCenter;
@@ -55,26 +56,26 @@ public class Net : MonoBehaviour
 
     public void CellSetuper( float fieldSizeX, float fieldSizeY, int numX, int numY)
     {
-        var numSymbols = numX * numY;
-        this.secondPointCell = new Vector2 [numSymbols];//готовим массив под новые координаты ячейки
+            var numSymbols = numX * numY;
+            this.secondPointCell = new Vector2[numSymbols];//готовим массив под новые координаты ячейки
 
-        float pointZeroX = -(fieldSizeX / numX + 1) * (numX - 1) / 2; // координата Х левой верхней ячейки ( левая граница поля)
-        float pointZeroY = 170 + fieldSizeY / 2;// координата Y левой верхней ячейки 
-        float stepX = fieldSizeX / numX + 1;// назначаем шаг по горизонтали
-        float stepY = fieldSizeY / numY + 1;// назначаем шаг по вертикали
-        this.cellScale = 1;
-        int counter = 0;// счетчик экземпляров Cell.  По нему же заполняется массив новых коррдинат для пеередвижения ячейки
-        for (int i = 0; i < numY; i++)
-        {
-            for (int j = 0; j < numX; j++)
+            float pointZeroX = -(fieldSizeX / numX + 1) * (numX - 1) / 2; // координата Х левой верхней ячейки ( левая граница поля)
+            float pointZeroY = 120 + fieldSizeY / 2;// координата Y левой верхней ячейки 
+            float stepX = fieldSizeX / numX + 1;// назначаем шаг по горизонтали
+            float stepY = fieldSizeY / numY;// назначаем шаг по вертикали
+            double koeff = 1.7 / numX;
+            this.cellScale = 0.5f + System.Convert.ToSingle(koeff);
+            int counter = 0;// счетчик экземпляров Cell.  По нему же заполняется массив новых коррдинат для пеередвижения ячейки
+            for (int i = 0; i < numY; i++)
             {
-                this.CellsMaker(pointZeroX + stepX * j, pointZeroY - stepY * i , this.cellScale, counter);
-                this.secondPointCell[counter] = new Vector2(pointZeroX + stepX * j, pointZeroY - stepY * i);// заполняем массив координатами
-                counter++;
+                for (int j = 0; j < numX; j++)
+                {
+                    this.CellsMaker(pointZeroX + stepX * j, pointZeroY - stepY * i, this.cellScale, counter);
+                    this.secondPointCell[counter] = new Vector2(pointZeroX + stepX * j, pointZeroY - stepY * i);// заполняем массив координатами
+                    counter++;
+                }
             }
-        }
-
-        this.secondPointCell = this.MixerOfCoordinates(secondPointCell);
+            this.secondPointCell = this.MixerOfCoordinates(secondPointCell);
     }
 
     public Vector2 [] MixerOfCoordinates(Vector2 [] array)
@@ -131,7 +132,7 @@ public class Net : MonoBehaviour
         this.contentManager = FindObjectOfType<ContentManager>();
     }
 
-    // ------ ниже указанный метод перемешивания более быстрый, чем мой, но он не гарантирует смену позиции именно каждой ячейки.
+    // ------ ниже указанный способ перемешивания более быстрый, чем мой, но он не гарантирует смену позиции именно каждой ячейки.
 
     //System.Random random = new System.Random(); 
     //for (int i = array.Length - 1; i >= 1; i--)
