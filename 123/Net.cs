@@ -17,7 +17,7 @@ public class Net : MonoBehaviour
     public delegate void Restart();
     public event Restart RestartEvent;
 
-    public void CellsMake(float x, float y, float scaleSymbol, int counterCell) // метод создания ячейки
+    public void CellsMaker(float x, float y, float scaleSymbol, int counterCell) // метод создания ячейки
     {
         Canvas canvas = FindObjectOfType<Canvas>();
         var canvasTransform = canvas.GetComponent<Transform>();
@@ -50,11 +50,11 @@ public class Net : MonoBehaviour
             RestartEvent();// Событие на удаление ранее созданных экземпляров Cell 
         }
         
-        this.CellSetup(gameManager.fieldSize.x, gameManager.fieldSize.y, gameManager.numX, gameManager.numY);
+        this.CellSetuper(gameManager.fieldSize.x, gameManager.fieldSize.y, gameManager.numX, gameManager.numY);
     }
 
 
-    public void CellSetup( float fieldSizeX, float fieldSizeY, int numX, int numY)
+    public void CellSetuper( float fieldSizeX, float fieldSizeY, int numX, int numY)
     {
             var numSymbols = numX * numY;
             this.secondPointCell = new Vector2[numSymbols];//готовим массив под новые координаты ячейки
@@ -70,7 +70,7 @@ public class Net : MonoBehaviour
             {
                 for (int j = 0; j < numX; j++)
                 {
-                    this.CellsMake(pointZeroX + stepX * j, pointZeroY - stepY * i, this.cellScale, counter);
+                    this.CellsMaker(pointZeroX + stepX * j, pointZeroY - stepY * i, this.cellScale, counter);
                     this.secondPointCell[counter] = new Vector2(pointZeroX + stepX * j, pointZeroY - stepY * i);// заполняем массив координатами
                     this.gameManager.SetEvents();
                     counter++;
@@ -104,7 +104,7 @@ public class Net : MonoBehaviour
         return tempArray;
     }
 
-    public void RemixCoord(Vector2[] array)// метод перемешивания. Вызывается из GameManager
+    public void ReMixCoord(Vector2[] array)// метод перемешивания. Вызывается из GameManager
     {
         var tempArray = new Vector2[array.Length];
         Vector2 empty = new Vector2(-999999, -999999);// для забивки использованной ячейки массива
@@ -133,5 +133,16 @@ public class Net : MonoBehaviour
         this.gameManager = FindObjectOfType<GameManager>();
         this.contentManager = FindObjectOfType<ContentManager>();
     }
+
+    // ------ ниже указанный способ перемешивания более быстрый, чем мой, но он не гарантирует смену позиции именно каждой ячейки.
+
+    //System.Random random = new System.Random(); 
+    //for (int i = array.Length - 1; i >= 1; i--)
+    //{
+    //    int j = random.Next (i + 1);
+    //    Vector2 tmp = array[j];
+    //    array [j] = array [i];
+    //    array [i] = tmp;
+    //}
 
 }

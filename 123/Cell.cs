@@ -34,6 +34,7 @@ public class Cell : MonoBehaviour
     }
     private void OnDestroy()
     {
+        //this.gameManager.UnSubscribeToEVents();
         this.net.RestartEvent -= this.CellDestroy;
         this.gameManager.EvMoveToNextPoint -= this.MoveToSecondPoint;
     }
@@ -41,7 +42,7 @@ public class Cell : MonoBehaviour
     void Start()
     {
         this.net = FindObjectOfType<Net>();
-        this.net.RestartEvent += this.CellDestroy;// событие уничтожения
+        this.net.RestartEvent += this.CellDestroy;// подписываемся на событие уничтожения
         gameManager = FindObjectOfType<GameManager>();
     }
     private void Update()

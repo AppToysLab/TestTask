@@ -24,13 +24,13 @@ public class GameManager : MonoBehaviour
         this.EvMoveToNextPoint -= cell.MoveToSecondPoint;
     }
 
-    public void CellMix()// метод перемешивания. Вызывается из UI.Button
+    public void CellMixer()// метод перемешивания. Вызывается из UI.Button
     {
         Net net = FindObjectOfType<Net>();
         if ((net.secondPointCell != null) && (GameObject.Find("Cell") != null))
         {
             System.GC.Collect();//сборка мусора 
-            net.RemixCoord(net.secondPointCell);//повторное перемешивание
+            net.ReMixCoord(net.secondPointCell);//повторное перемешивание
             this.EvMoveToNextPoint();// событие на предвижение. Подписан  Cell
         }
         
@@ -67,5 +67,7 @@ public class GameManager : MonoBehaviour
         this.numX = 3;//задаем значение по умолчанию
         this.numY = 4;
         this.SetFieldSize();
+        
+       // EvMoveToNextPoint += cell.MoveToSecondPoint;
     }
 }
